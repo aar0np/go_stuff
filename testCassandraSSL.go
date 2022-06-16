@@ -1,4 +1,4 @@
-package testCassandraSSL
+package main
 
 import (
     "crypto/tls"
@@ -15,7 +15,7 @@ import (
 
 func main() {
     // set default port
-    var port int = 9042
+    var port int = 29042
     var err error
 
     // read command line arguments
@@ -23,11 +23,13 @@ func main() {
     username := os.Args[2]
     password := os.Args[3]
 
-    port,_ = strconv.Atoi(os.Args[4])
+    caPath,_ := filepath.Abs(os.Args[4])
+    certPath,_ := filepath.Abs(os.Args[5])
+    keyPath,_ := filepath.Abs(os.Args[6])
 
-    caPath,_ := filepath.Abs(os.Args[5])
-    certPath,_ := filepath.Abs(os.Args[6])
-    keyPath,_ := filepath.Abs(os.Args[7])
+    if (len(os.Args) > 7) {
+		    port,_ = strconv.Atoi(os.Args[7])
+    }
 
     // Cluster connection/session code
     cluster := gocql.NewCluster(hostname)

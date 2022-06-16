@@ -1,4 +1,4 @@
-package testCassandra
+package main
 
 import (
     "context"
